@@ -135,4 +135,20 @@ public String updateItem(String ID, String Code, String Name, String Date, Strin
 	 // create a prepared statement
 	 String query = "delete from items where locationID=?";
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	// binding values
+	 preparedStmt.setInt(1, Integer.parseInt(locationID));
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Deleted successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while deleting the item.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
 	 
+	 }
+	
+	} 
