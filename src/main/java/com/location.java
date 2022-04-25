@@ -112,4 +112,16 @@ public String updateItem(String ID, String Code, String Name, String Date, Strin
 	 preparedStmt.setString(4, Time);
 	 preparedStmt.setInt(5, Integer.parseInt(ID));
 	 
-	 
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Updated successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while updating the item.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
+	
