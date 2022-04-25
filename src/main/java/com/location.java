@@ -124,4 +124,15 @@ public String updateItem(String ID, String Code, String Name, String Date, Strin
 	 }
 	 return output;
 	 }
-	
+	public String deleteItem(String locationID)
+	 {
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for deleting."; }
+	 // create a prepared statement
+	 String query = "delete from items where locationID=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 
