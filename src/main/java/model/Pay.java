@@ -141,4 +141,26 @@ public class Pay {
 		}
 		return output;
 	}
+
+	public String deletePayment(String payID) {
+		String output="";
+		try {
+			Connection con = connect();
+			if(con == null) {
+				return "can not connect to the database";
+			}
+			String query ="delete from payment where payID=?";
+			PreparedStatement ps = con.prepareStatement(query);
+			
+			ps.setInt(1, Integer.parseInt(payID));
+			ps.execute();
+			con.close();
+			output ="Deleted successfully";
+		}
+		catch(Exception e) {
+			output ="can not delete, check error.";
+			e.printStackTrace();
+		}
+		return output;
+	}
 }
