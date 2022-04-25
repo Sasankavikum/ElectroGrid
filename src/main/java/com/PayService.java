@@ -39,5 +39,37 @@ Pay p = new Pay();
 	return output;
 }	
 
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updatePayment(String paymentData)
+	{
+		JsonObject paymentObject = new JsonParser().parse(paymentData).getAsJsonObject();
+		String payID = paymentObject.get("payID").getAsString();
+		String fullName = paymentObject.get("fullName").getAsString();
+		String NIC = paymentObject.get("NIC").getAsString();
+		String amount = paymentObject.get("amount").getAsString();
+		String date = paymentObject.get("date").getAsString();
+		String bankName = paymentObject.get("bankName").getAsString();
+		String debitCard = paymentObject.get("debitCard").getAsString();
+		String otpNumber = paymentObject.get("otpNumber").getAsString();
+		
+		String output = p.updatePayment(payID,fullName,NIC,amount,date,bankName,debitCard,otpNumber);
+		return output;
+	}
+	@DELETE
+	@Path("/") 
+	@Consumes(MediaType.APPLICATION_XML) 
+	@Produces(MediaType.TEXT_PLAIN) 
+	public String deletePayment(String paymentData)
+	{
+		//convert input string => xml document
+		Document doc = Jsoup.parse(paymentData, "", Parser.xmlParser());
+		//read the value from the element
+		String payID = doc.select("payID").text();
+		String output =p.deletePayment(payID);
+		return output;
+	}
 
 }
