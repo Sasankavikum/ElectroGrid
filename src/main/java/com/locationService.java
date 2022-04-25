@@ -34,7 +34,38 @@ public String insertItem(@FormParam("locationCode") String locationCode,
 	String output = itemObj.insertItem(locationCode, locationName, date, time);
 	return output;
 		}
+@PUT
+@Path("/")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
+public String updateItem(String itemData)
+{
+//Convert the input string to a JSON object
+ JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+//Read the values from the JSON object
+ String locationID = itemObject.get("locationID").getAsString();
+ String locationCode = itemObject.get("locationCode").getAsString();
+ String locationName = itemObject.get("locationName").getAsString();
+ String date = itemObject.get("date").getAsString();
+ String time = itemObject.get("time").getAsString();
+ String output = itemObj.updateItem(locationID, locationCode, locationName, date, time);
+return output;
+}
 
+@DELETE
+@Path("/")
+@Consumes(MediaType.APPLICATION_XML)
+@Produces(MediaType.TEXT_PLAIN)
+public String deleteItem(String itemData)
+{
+//Convert the input string to an XML document
+ Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
+
+//Read the value from the element <locationID>
+ String locationID = doc.select("locationID").text();
+ String output = itemObj.deleteItem(locationID);
+return output;
+}
 
 
 
