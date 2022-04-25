@@ -43,5 +43,26 @@ public class ItemService
 	return output;
 	}
 	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateItem(String itemData)
+	{
+	//Convert the input string to a JSON object
+	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+	//Read the values from the JSON object
+	 String userID = itemObject.get("userID").getAsString();
+	 String userNumber = itemObject.get("userNumber").getAsString();
+	 String name = itemObject.get("name").getAsString();
+	 String address = itemObject.get("address").getAsString();
+	 String phoneNumber = itemObject.get("phoneNumber").getAsString();
+	 String email = itemObject.get("email").getAsString();
+	 String output = itemObj.updateItem(userID, userNumber, name, address, phoneNumber, email);
+	return output;
+	}
+	
+	
+	
 	
 }
